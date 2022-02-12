@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { FactModule } from './fact/fact.module';
-import { SubscriberModule } from './subscriber/subscriber.module';
+import { RecipientModule } from './recipient/recipient.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configValidationSchema } from './config.schema';
 
@@ -28,7 +28,7 @@ import { configValidationSchema } from './config.schema';
     }),
     AuthModule,
     FactModule,
-    SubscriberModule,
+    RecipientModule,
   ],
 })
 export class AppModule {}
