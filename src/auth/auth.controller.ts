@@ -17,8 +17,11 @@ export class AuthController {
     return this.authService.signUp(createUserDto);
   }
 
-  @Get('/signin')
-  signIn(): string {
-    return 'Signing in the user...';
+  @Post('/signin')
+  signIn(
+    @Body('email') email: string,
+    @Body('password') password: string,
+  ): Promise<string> {
+    return this.authService.signIn(email, password);
   }
 }
