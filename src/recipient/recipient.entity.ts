@@ -1,14 +1,17 @@
-import { Entity, Column, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from 'src/auth/user.entity';
 
 @Entity()
 export class Recipient {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Column()
   name: string;
 
-  @Column({ unique: true, type: 'int', length: 10 })
+  @Column({ unique: true, type: 'int' })
   phoneNumber: number;
 
-  @ManyToOne(() => User, (user) => user.recipients)
+  @ManyToOne((type) => User, (user) => user.recipients)
   addedBy: User;
 }

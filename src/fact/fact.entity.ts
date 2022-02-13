@@ -35,6 +35,6 @@ export class Fact {
   @Column('simple-json')
   status: { verified: boolean; feedback: string; sentCount: number };
 
-  @ManyToOne(() => User, (user) => user.facts)
+  @ManyToOne((type) => User, (user) => user.facts)
   user: User;
 }

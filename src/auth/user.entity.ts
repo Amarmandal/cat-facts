@@ -21,6 +21,9 @@ export class User {
   lastName: string;
 
   @Column()
+  password: string;
+
+  @Column({ default: false })
   isAdmin: boolean;
 
   @Column({ unique: true })
@@ -32,10 +35,10 @@ export class User {
   @UpdateDateColumn()
   updatedDate: Date;
 
-  @OneToMany(() => Fact, (fact) => fact.user, { eager: true })
+  @OneToMany((_type) => Fact, (fact) => fact.user, { eager: true })
   facts: Fact[];
 
-  @OneToMany(() => Recipient, (recipient) => recipient.addedBy, {
+  @OneToMany((_type) => Recipient, (recipient) => recipient.addedBy, {
     eager: true,
   })
   recipients: Recipient[];
