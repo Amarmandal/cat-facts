@@ -19,10 +19,10 @@ export class Fact {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column()
+  @Column({ default: new Date().toDateString() })
   sendDate: Date;
 
-  @Column()
+  @Column({ default: false })
   deleted: boolean;
 
   @Column({
@@ -30,7 +30,7 @@ export class Fact {
     enum: AnimalEnum,
     default: AnimalEnum.CAT,
   })
-  type: AnimalEnum;
+  animalType: AnimalEnum;
 
   @Column('simple-json')
   status: { verified: boolean; feedback: string; sentCount: number };

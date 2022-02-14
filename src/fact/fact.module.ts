@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common';
 import { FactService } from './fact.service';
 import { FactController } from './fact.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Fact } from './fact.entity';
 import { PassportModule } from '@nestjs/passport';
+import { FactRepository } from './fact.repository';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Fact]),
+    TypeOrmModule.forFeature([FactRepository]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
   providers: [FactService],
