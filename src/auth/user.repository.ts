@@ -19,6 +19,7 @@ export class UserRepository extends Repository<User> {
     const user = this.create({ ...createUserDto, password: hash });
     try {
       await this.save(user);
+      user.password = undefined;
       return user;
     } catch (error) {
       this.logger.error(
