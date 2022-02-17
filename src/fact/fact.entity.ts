@@ -32,9 +32,12 @@ export class Fact {
   })
   animalType: AnimalEnum;
 
-  @Column('simple-json')
+  @Column({ type: 'jsonb' })
   status: { verified: boolean; feedback: string; sentCount: number };
 
-  @ManyToOne((type) => User, (user) => user.facts)
+  @Column({ default: 0 })
+  age: number;
+
+  @ManyToOne((_type) => User, (user) => user.facts)
   user: User;
 }

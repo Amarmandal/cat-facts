@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -14,6 +15,8 @@ import { User } from 'src/auth/user.entity';
 import { Admin } from 'src/common/decorators/metadata/admin.decorator';
 import { AdminGuard } from 'src/common/guards/admin.guard';
 import { CreateFactDto } from './dto/create-fact.dto';
+import { FilterFactDto } from './dto/filter-fact.dto';
+import { UpdateStatusDto } from './dto/update-status.dto';
 import { Fact } from './fact.entity';
 import { FactService } from './fact.service';
 
@@ -23,8 +26,8 @@ export class FactController {
   constructor(private readonly factService: FactService) {}
 
   @Get()
-  async getFact() {
-    return 'Fetching fact from database...';
+  async getFact(@Query() filterFactDto: FilterFactDto): Promise<Fact[]> {
+    return this.factService.getFacts(filterFactDto);
   }
 
   //own the fact
@@ -41,8 +44,12 @@ export class FactController {
   @Patch(':id/status')
   @Admin(true)
   @UseGuards(AdminGuard)
-  async updateStatus() {
-    return 'Updating status...';
+  updateStatus(
+    @Body() updateStatusDto: UpdateStatusDto,
+    @Param('id') id: string,
+    @GetUser() user: User,
+  ): Promise<string> {
+    return this.factService.updateFactStatus(updateStatusDto, id, user);
   }
 
   @Delete(':id')
